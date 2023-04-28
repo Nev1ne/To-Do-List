@@ -108,3 +108,31 @@ const refrestCompletedTask = (bool, element) => {
           refrestCompletedTask(e.target.checked, e.target);
           setData();
         }
+        if (e.target.classList.contains('remove')) {
+            e.target.parentElement.remove();
+            removeSelectedItem(toDoTasks, e.target.dataset.id);
+            setData();
+            displayTasks();
+            refrestTargetDragDrop();
+            refreshEditableItems(toDoTasks);
+          }
+        });
+        
+        removeAllIcon.addEventListener('click', () => {
+          toDoTasks = removeAllItems(toDoTasks, listContainer);
+          setData();
+        });
+        
+        inputTask.addEventListener('keyup', (e) => {
+          e.preventDefault();
+          if (e.keyCode === 13) {
+            const input = document.querySelector('.input-task');
+            addTask(toDoTasks, input);
+            setData();
+            displayTasks();
+            refrestTargetDragDrop();
+            refreshEditableItems(toDoTasks);
+            input.value = '';
+          }
+        });
+         
