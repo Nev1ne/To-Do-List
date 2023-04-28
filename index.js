@@ -34,3 +34,28 @@ const displayTasks = () => {
 };
 
 const refrestCompletedTask = (bool, element) => {
+    if (bool) {
+        toDoTasks[parseInt(element.dataset.id, 10)].completed = true;
+        element.setAttribute('checked', 'true');
+      } else {
+        toDoTasks[parseInt(element.dataset.id, 10)].completed = false;
+        element.removeAttribute('checked');
+      }
+    };
+    
+    const getTaskData = () => {
+      if (localStorage.getItem('TaskData') != null) {
+        toDoTasks = JSON.parse(localStorage.getItem('TaskData'));
+      }
+    };
+    
+    const setData = () => {
+      localStorage.setItem('TaskData', JSON.stringify(toDoTasks));
+    };
+    
+    const refrestTargetDragDrop = () => {
+      const tasks = document.querySelectorAll('.container-list .item');
+    
+      tasks.forEach((task) => {
+        task.addEventListener('dragstart', dragStart);
+        task.addEventListener('dragend', dragEnd);g
