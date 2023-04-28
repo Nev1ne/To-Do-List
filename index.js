@@ -135,4 +135,17 @@ const refrestCompletedTask = (bool, element) => {
             input.value = '';
           }
         });
-         
+        clearCompletedTasks.addEventListener('click', () => {
+            if (toDoTasks.length > 0) {
+              toDoTasks = removeCompletedItem(toDoTasks);
+              toDoTasks.forEach((task, index) => {
+                task.index = index;
+              });
+              setData();
+              displayTasks();
+              refrestTargetDragDrop();
+              refreshEditableItems(toDoTasks);
+            }
+          });
+          
+          module.exports = setData;   
