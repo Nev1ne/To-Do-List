@@ -58,4 +58,28 @@ const refrestCompletedTask = (bool, element) => {
     
       tasks.forEach((task) => {
         task.addEventListener('dragstart', dragStart);
-        task.addEventListener('dragend', dragEnd);g
+        task.addEventListener('dragend', dragEnd);
+        task.addEventListener('dragover', dragOver);
+        task.addEventListener('drop', (e) => {
+          dragDrop(e);
+          const items = [...listContainer.children];
+    
+          toDoTasks = [];
+    
+          items.forEach((item, index) => {
+            const newTask = new Task(item.children[1].textContent, item.children[0].checked, index);
+            toDoTasks.push(newTask);
+            setData();
+          });
+        });
+      });
+    };
+    
+    const checkBoxStatusContentLoad = () => {
+      const items = [...listContainer.children];
+    
+      items.forEach((item) => {
+        changeStyleTask(item.children[0].checked, item.children[0]);
+      });
+    };
+    
