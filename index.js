@@ -82,4 +82,29 @@ const refrestCompletedTask = (bool, element) => {
         changeStyleTask(item.children[0].checked, item.children[0]);
       });
     };
-    
+    const refreshEditableItems = (tasks) => {
+        const editableItems = document.querySelectorAll('.container-list li .text-task');
+      
+        editableItems.forEach((item) => {
+          item.addEventListener('input', () => {
+            tasks[parseInt(item.dataset.id, 10)].description = item.textContent;
+            setData();
+          });
+        });
+      };
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        getTaskData();
+        setData();
+        displayTasks();
+        checkBoxStatusContentLoad();
+        refrestTargetDragDrop();
+        refreshEditableItems(toDoTasks);
+      });
+      
+      listContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('checkbox')) {
+          checkBoxStatus(e.target);
+          refrestCompletedTask(e.target.checked, e.target);
+          setData();
+        }
